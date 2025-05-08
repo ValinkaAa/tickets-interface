@@ -1,0 +1,183 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Закупуване на билет</h2>
+  
+    <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+  
+      <!-- 🔹 Лични данни -->
+      <fieldset class="border p-3 mb-4">
+        <legend class="w-auto py-2">Лични данни</legend>
+  
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="fullName" class="form-label">Трите имена <span class="text-danger">*</span></label>
+            <input type="text" id="fullName" formControlName="fullName" required class="form-control" placeholder="Иван Иванов Иванов">
+            <div class="text-danger">
+              @if(ticketForm.controls['fullName'].errors?.['required'] && ticketForm.controls['fullName'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="egn" class="form-label">ЕГН <span class="text-danger">*</span></label>
+            <input type="text" id="egn" formControlName="egn" required class="form-control" placeholder="1234567890">
+            <div class="text-danger">
+              @if(ticketForm.controls['egn'].errors?.['required'] && ticketForm.controls['egn'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              @if(ticketForm.controls['egn'].errors?.['pattern'])
+              {
+                <span>Невалиден ЕГН.</span>
+              }
+            </div>
+          </div>
+        </div>
+  
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="idCardNum" class="form-label">Номер на лична карта <span class="text-danger">*</span></label>
+            <input type="text" id="idCardNum" required formControlName="idCardNum" class="form-control">
+            <div class="text-danger">
+              @if(ticketForm.controls['idCardNum'].errors?.['required'] && ticketForm.controls['idCardNum'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="mobile" class="form-label">Телефон</label>
+            <input type="text" id="mobile" formControlName="mobile" class="form-control" placeholder="+359 88 123 4567">
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Имейл <span class="text-danger">*</span></label>
+          <input type="email" id="email" required formControlName="email" class="form-control" placeholder="example@email.com">
+          <div class="text-danger">
+            @if(ticketForm.controls['email'].errors?.['required'] && ticketForm.controls['email'].touched)
+            {
+              <span>Това поле е задължително.</span>
+            }
+            @if(ticketForm.controls['email'].errors?.['pattern'])
+            {
+              <span>Невалиден имейл адрес.</span>
+            }
+          </div>
+        </div>
+      </fieldset>
+  
+      <!-- 🔹 Адрес -->
+      <fieldset class="border p-3 mb-4">
+        <legend class="w-auto py-2">Адрес</legend>
+  
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="country" class="form-label">Държава <span class="text-danger">*</span></label>
+            <input type="text" id="country" required formControlName="country" class="form-control">
+            <div class="text-danger">
+              @if(ticketForm.controls['country'].errors?.['required'] && ticketForm.controls['country'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="region" class="form-label">Област <span class="text-danger">*</span></label>
+            <input type="text" id="region" required formControlName="region" class="form-control">
+            <div class="text-danger">
+              @if(ticketForm.controls['region'].errors?.['required'] && ticketForm.controls['region'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+        </div>
+  
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="municipality" class="form-label">Община <span class="text-danger">*</span></label>
+            <input type="text" id="municipality" required formControlName="municipality" class="form-control">
+            <div class="text-danger">
+              @if(ticketForm.controls['municipality'].errors?.['required'] && ticketForm.controls['municipality'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="city" class="form-label">Град <span class="text-danger">*</span></label>
+            <input type="text" id="city" required formControlName="city" class="form-control">
+            <div class="text-danger">
+              @if(ticketForm.controls['city'].errors?.['required'] && ticketForm.controls['city'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="street" class="form-label">Улица</label>
+          <input type="text" id="street" formControlName="street" class="form-control">
+        </div>
+      </fieldset>
+  
+      <!-- 🔹 Билет -->
+      <fieldset class="border p-3 mb-4">
+        <legend class="w-auto py-2">Информация за билет</legend>
+  
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="ticketType" class="form-label">Тип билет <span class="text-danger">*</span></label>
+            <select id="ticketType" formControlName="ticketType" required class="form-select">
+              <option value="" disabled>-- Избери --</option>
+              <option value="standard">Стандартен</option>
+              <option value="child">Детски</option>
+              <option value="senior">Пенсионерски</option>
+            </select>
+            <div class="text-danger">
+              @if(ticketForm.controls['ticketType'].errors?.['required'] && ticketForm.controls['ticketType'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+  
+          <div class="col-md-6">
+            <label for="validity" class="form-label">Валидност <span class="text-danger">*</span></label>
+            <select id="validity" formControlName="validity" required class="form-select">
+              <option value="" disabled>-- Избери --</option>
+              <option value="1-week">1 седмица</option>
+              <option value="1-month">1 месец</option>
+              <option value="6-months">6 месеца</option>
+              <option value="1-year">1 година</option>
+            </select>
+            <div class="text-danger">
+              @if(ticketForm.controls['validity'].errors?.['required'] && ticketForm.controls['validity'].touched)
+              {
+                <span>Това поле е задължително.</span>
+              }
+              
+            </div>
+          </div>
+        </div>
+      </fieldset>
+  
+      <!-- 🔘 Бутон за изпращане -->
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary" [disabled]="ticketForm.invalid">
+          Купи билет
+        </button>
+      </div>
+  
+    </form>
+  </div>
+  
